@@ -131,7 +131,7 @@ def get_data(weaponType,skinName):
     datax = []
     datay = []
     
-    for x in range(30, 0, -1):
+    for x in range(300, 0, -1):
         if x == 1:
             query = f'''
             from(bucket: "admin")
