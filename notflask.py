@@ -85,9 +85,14 @@ def fetch_suggestions_from_db(query):
 
 @app.route('/<skinName>')
 def skin(skinName):
-    texts = skinName.split(" | ")
-    weaponType = texts[0]
-    skinName = texts[1]
+    print(skinName)
+    texts = skinName.split("|")
+    print(texts)
+    weaponType = texts[0].strip()
+    print(weaponType)
+    print(len(texts))
+    print(texts)
+    skinName = texts[1].strip()
 
     getchart = get_data(weaponType, skinName)
     getdatafrompostgres = skin_data_from_postgres(weaponType,skinName)
