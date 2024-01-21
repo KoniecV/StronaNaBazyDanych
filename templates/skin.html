@@ -307,6 +307,7 @@
     <script type="text/babel">
         // Define the React component
         console.log('ddd');
+        skinData=skinData.shift();
         console.log(skinData);
         class SkinDetails extends React.Component {
             render() {
@@ -315,31 +316,31 @@
                         <tbody>
                             <tr>
                                 <td className="span3">ID</td>
-                                <td>{skinData.id_przedmiotu}</td>
+                                <td>{skinData[0]}</td>
                             </tr>
                             <tr>
                                 <td>Skin Type</td>
-                                <td>{skinData.typ_skina}</td>
+                                <td>{skinData[1]}</td>
                             </tr>
                             <tr>
                                 <td>Skin Name</td>
-                                <td>{skinData.nazwa_skorki}</td>
+                                <td>{skinData[2]}</td>
                             </tr>
                             <tr>
                                 <td>Weapon Type</td>
-                                <td>{skinData.rodzaj_przedmiotu}</td>
+                                <td>{skinData[3]}</td>
                             </tr>
                             <tr>
                                 <td>Collection</td>
-                                <td>{skinData.kolekcja}</td>
+                                <td>{skinData[4]}</td>
                             </tr>
                             <tr>
                                 <td>Rarity</td>
-                                <td>{skinData.rzadkosc}</td>
+                                <td>{skinData[5]}</td>
                             </tr>
                             <tr>
                                 <td>Wear and Tear</td>
-                                <td>{skinData.stan_zuzycia}</td>
+                                <td>{skinData[6]}</td>
                             </tr>
                         </tbody>
                     </table>

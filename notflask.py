@@ -186,18 +186,18 @@ def skin_data_from_postgres(weaponType, skinName):
     cursor = conn.cursor()
 
     cursor.execute("""
-        SELECT "typ_skina", "nazwa_skorki", "stan_zuzycia"
+        SELECT *
         FROM public.typ_przedmiotu
         WHERE "typ_skina" = %s
-           OR "nazwa_skorki" = %s
-           OR "stan_zuzycia" = %s
+           AND "nazwa_skorki" = %s
+           AND "stan_zuzycia" = %s
         LIMIT 10;
-    """, (f'%{weaponType}%', f'%{skinName}%', f'%{stan}%'))
+    """, (f'{weaponType}', f'{skinName}', f'{stan}'))
 
     data = cursor.fetchall()
     
     conn.close()
-
+    print(data)
     return data
 
 if __name__ == '__main__':
