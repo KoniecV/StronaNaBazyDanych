@@ -85,6 +85,8 @@ def fetch_suggestions_from_db(query):
 
 @app.route('/<skinName>')
 def skin(skinName):
+    if skinName == "favicon.ico":
+        return "/favicon.ico"
     print(skinName)
     texts = skinName.split("|")
     print(texts)
