@@ -23,6 +23,8 @@
     <script src="https://unpkg.com/react-dom@17/umd/react-dom.development.js"></script>
     <script src="https://unpkg.com/babel-standalone@6/babel.js"></script>
     <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <script src="https://unpkg.com/react@17/umd/react.production.min.js"></script>
+    <script src="https://unpkg.com/react-dom@17/umd/react-dom.production.min.js"></script>
 </head>
 
 <body class="page-apps">
@@ -81,7 +83,7 @@
 
                             <div class="span4">
                                 <div class="js-open-screenshot-viewer">
-                                    <img src="Path to image here" class="app-logo" itemprop="image" alt="Skin Image"
+                                    <img src="png/SteamDBlogo" class="app-logo" itemprop="image" alt="Skin Image"
                                         width="324" height="151">
                                 </div>
                                 <div class="header-two-things">
@@ -119,8 +121,7 @@
                                             const skinName = urlParams.get('skinName');
                                             const weaponType = urlParams.get('weaponType');
                                             var chartData = {{ getchart }};
-                                            console.log(chartData);
-                                            console.log("qtas");
+                                            var skinData = {{getskindata| tojson}};
                                             (async () => {
 
                                                 // Pobierz wartość z URL, zakładając, że parametr w URL to "skinName"
@@ -292,7 +293,6 @@
                                                     }
                                                 });
                                             })();
-                                            console.log(chartData)
                                         </script>
                                     </div>
                                 </div>
@@ -304,42 +304,42 @@
         </div>
     </div>
 
-    <script>
+    <script type="text/babel">
         // Define the React component
+        console.log('ddd');
+        console.log(skinData);
         class SkinDetails extends React.Component {
             render() {
-                    let skindatapostgres = {{getdatafrompostgres}};
-                    console.log(skindatapostgres);
                 return (
                     <table className="table table-bordered table-hover table-responsive-flex">
                         <tbody>
                             <tr>
                                 <td className="span3">ID</td>
-                                <td>{skinData.item_type}</td>
+                                <td>{skinData.id_przedmiotu}</td>
+                            </tr>
+                            <tr>
+                                <td>Skin Type</td>
+                                <td>{skinData.typ_skina}</td>
                             </tr>
                             <tr>
                                 <td>Skin Name</td>
-                                <td>{skinData.skin_name}</td>
+                                <td>{skinData.nazwa_skorki}</td>
+                            </tr>
+                            <tr>
+                                <td>Weapon Type</td>
+                                <td>{skinData.rodzaj_przedmiotu}</td>
                             </tr>
                             <tr>
                                 <td>Collection</td>
-                                <td>{skinData.collection}</td>
+                                <td>{skinData.kolekcja}</td>
                             </tr>
                             <tr>
                                 <td>Rarity</td>
-                                <td>{skinData.rarity}</td>
+                                <td>{skinData.rzadkosc}</td>
                             </tr>
                             <tr>
                                 <td>Wear and Tear</td>
-                                <td>{skinData.wear_and_tear}</td>
-                            </tr>
-                            <tr>
-                                <td>Stat Track</td>
-                                <td>{skinData.stat_track}</td>
-                            </tr>
-                            <tr>
-                                <td>Souvenir</td>
-                                <td>{otherData}</td>
+                                <td>{skinData.stan_zuzycia}</td>
                             </tr>
                         </tbody>
                     </table>
