@@ -33,6 +33,8 @@ def get_steam_market_image(skin_name):
 # Konfiguracja InfluxDB
 influxdb_host = "127.0.0.1:8086"
 bucket = "admin"
+#org = "086f756ff907fbd5"
+#token = "4khVY-qf0z-Bt3iGxam3IvXvExtahAwFRaflw_3hP1QNU38lFjpg-0ZQHlmb3FEU57wGQrZEu4Mvea-UFuXS8Q=="
 org = "c9d2f82bec384031"
 token = "YY7AtGmBB5uAAcgdEP5G0u34dqbbmEYmr7-ZgOEG4spK_6l9XMThk7HQckSQVWwD7mGxKSLzcTqHXU8bGU5pow=="
 
