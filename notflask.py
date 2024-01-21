@@ -96,8 +96,10 @@ def skin(skinName):
     print(weaponType)
     print(len(texts))
     print(texts)
-    skinName = texts[1].strip()
-
+    skinName = ''.join(texts[1:]).strip()
+    print(skinName)
+    white_space_count = skinName.count(' ')
+    print("Liczba białych znaków:", white_space_count)
     getchart = get_data(weaponType, skinName)
     getdatafrompostgres = skin_data_from_postgres(weaponType,skinName)
 
@@ -153,6 +155,7 @@ def get_data(weaponType,skinName):
         
         query_api = client.query_api()
         result = query_api.query(query, org=org)
+        print(weaponType,skinName,sep='')
 
         for table in result:
             for record in table.records:
