@@ -19,11 +19,11 @@ function displaySuggestions(suggestions) {
 
     suggestions.forEach(suggestion => {
         var li = document.createElement('li');
-        // Utwórz link <a> dla każdej propozycji
         var link = document.createElement('a');
+        var suggestionPath = `${suggestion[0]} | ${suggestion[1]} (${suggestion[2]})`.replace(/\s+/g, ' ');
         var suggestionPath = `${suggestion[0]} | ${suggestion[1]} (${suggestion[2]})`.replace(/\s+/g, ' '); // Zamień spacje na podkreślenia
         link.textContent = suggestionPath;
-        link.href = `/${encodeURIComponent(suggestionPath)}`; // Przekieruj do /suggestion/[nazwa_skorki]
+        link.href = `/${encodeURIComponent(suggestionPath)}`;
         li.appendChild(link);
 
         suggestionList.appendChild(li);
