@@ -193,7 +193,7 @@ def skin_data_from_postgres(weaponType, skinName):
         WHERE "typ_skina" = %s
            AND "nazwa_skorki" = %s
            AND "stan_zuzycia" = %s
-        LIMIT 10;
+        LIMIT 1;
     """, (f'{weaponType}', f'{skinName}', f'{stan}'))
 
     data = cursor.fetchall()
