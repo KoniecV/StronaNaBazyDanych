@@ -1,4 +1,5 @@
 from datetime import datetime, timedelta
+import logging
 import influxdb_client
 import pandas as pd
 from influxdb_client.client.write_api import SYNCHRONOUS
@@ -7,6 +8,12 @@ import psycopg2
 import json
 import requests
 from bs4 import BeautifulSoup
+from flask import send_file
+from urllib.parse import quote
+
+
+logging.basicConfig(level=logging.DEBUG)
+
 
 # Skin IMG
 def get_steam_market_image(skin_name):
@@ -26,17 +33,17 @@ def get_steam_market_image(skin_name):
         if image_div:
             image_url = image_div.find('img')['src']
             return image_url
-
+    logging.debug(f"Error path to img {skin_name}")
     return None
 
 
 # Konfiguracja InfluxDB
 influxdb_host = "127.0.0.1:8086"
 bucket = "admin"
-#org = "086f756ff907fbd5"
-#token = "4khVY-qf0z-Bt3iGxam3IvXvExtahAwFRaflw_3hP1QNU38lFjpg-0ZQHlmb3FEU57wGQrZEu4Mvea-UFuXS8Q=="
-org = "c9d2f82bec384031"
-token = "YY7AtGmBB5uAAcgdEP5G0u34dqbbmEYmr7-ZgOEG4spK_6l9XMThk7HQckSQVWwD7mGxKSLzcTqHXU8bGU5pow=="
+org = "086f756ff907fbd5"
+token = "4khVY-qf0z-Bt3iGxam3IvXvExtahAwFRaflw_3hP1QNU38lFjpg-0ZQHlmb3FEU57wGQrZEu4Mvea-UFuXS8Q=="
+#org = "c9d2f82bec384031"
+#token = "YY7AtGmBB5uAAcgdEP5G0u34dqbbmEYmr7-ZgOEG4spK_6l9XMThk7HQckSQVWwD7mGxKSLzcTqHXU8bGU5pow=="
 
 app = Flask(__name__)
 
@@ -89,17 +96,13 @@ def fetch_suggestions_from_db(query):
 def skin(skinName):
     if skinName == "favicon.ico":
         return "/favicon.ico"
-    print(skinName)
+
     texts = skinName.split("|")
-    print(texts)
+
     weaponType = texts[0].strip()
-    print(weaponType)
-    print(len(texts))
-    print(texts)
+
     skinName = ''.join(texts[1:]).strip()
-    print(skinName)
-    white_space_count = skinName.count(' ')
-    print("Liczba białych znaków:", white_space_count)
+
     getchart = get_data(weaponType, skinName)
     getdatafrompostgres = skin_data_from_postgres(weaponType,skinName)
 
@@ -122,6 +125,49 @@ def inventory():
 @app.route('/')
 def index():
     return render_template('index.html')
+
+@app.route('/get_image_url/<path:skin_name>', methods=['GET'])
+def get_image_url(skin_name):
+    image_url2 = str(get_steam_market_image(skin_name))
+    if image_url2:
+        logging.debug(image_url2)
+        return image_url2
+    else:
+        return 'png/error.png' # Zmień na ścieżkę do domyślnego zdjęcia
+
+
+@app.route('/query_influxdb', methods=['GET'])
+def query_influxdb():
+    # Utwórz zapytanie Flux
+    flux_query = '''
+    from(bucket: "admin")
+      |> range(start: 0, stop: now())
+      |> last()
+      |> filter(fn: (r) => r["Normal"] != "")
+      |> sort(columns:["_value"], desc: true)
+      |> limit(n:10)
+    '''
+
+    client = influxdb_client.InfluxDBClient(
+        url=influxdb_host,
+        token=token,
+        org=org
+    )
+
+    # Wykonaj zapytanie
+    query_api = client.query_api()
+    result = query_api.query(org=org, query=flux_query)
+
+    # Przetwórz wyniki do formatu JSON
+    data = []
+    for table in result:
+        for record in table.records:
+            data.append(record.values)
+
+    sorted_data = sorted(data, key=lambda x: x.get('_value', 0), reverse=True)[:10]
+
+    return jsonify(sorted_data)
+
 
 @app.route('/get_data', methods=['GET'])
 def get_data(weaponType,skinName):
@@ -155,7 +201,6 @@ def get_data(weaponType,skinName):
         
         query_api = client.query_api()
         result = query_api.query(query, org=org)
-        print(weaponType,skinName,sep='')
 
         for table in result:
             for record in table.records:

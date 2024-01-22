@@ -21,7 +21,6 @@ function displaySuggestions(suggestions) {
         var li = document.createElement('li');
         var link = document.createElement('a');
         var suggestionPath = `${suggestion[0]} | ${suggestion[1]} (${suggestion[2]})`.replace(/\s+/g, ' ');
-        var suggestionPath = `${suggestion[0]} | ${suggestion[1]} (${suggestion[2]})`.replace(/\s+/g, ' '); // Zamień spacje na podkreślenia
         link.textContent = suggestionPath;
         link.href = `/${encodeURIComponent(suggestionPath)}`;
         li.appendChild(link);
