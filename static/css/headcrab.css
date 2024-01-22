@@ -112,7 +112,7 @@ img {
 }
 
 .container {
-    width: 960px;
+    width: 1500px;
     padding-left: 10px;
     padding-right: 10px;
     margin-right: auto;
@@ -1259,7 +1259,7 @@ a.header-login:hover {
 
 .table-products .applogo img {
     width: 107px;
-    height: 40px;
+    height: 90px;
     display: inline-block;
     background: url(/static/img/applogo.svg);
     background-size: contain
@@ -1700,11 +1700,6 @@ select {
     text-transform: none
 }
 
-button,
-[type=submit] {
-    -webkit-appearance: button
-}
-
 ::-moz-focus-inner {
     border-style: none;
     padding: 0
@@ -1718,10 +1713,6 @@ button,
     box-shadow: none
 }
 
-[type=search] {
-    -webkit-appearance: textfield;
-    outline-offset: -2px
-}
 
 ::-webkit-search-decoration {
     -webkit-appearance: none
