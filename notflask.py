@@ -219,6 +219,8 @@ def skin(skinName):
     if skinName == "favicon.ico":
         return "/favicon.ico"
 
+    image_url2 = str(get_steam_market_image(skinName))
+
     texts = skinName.split("|")
 
     weaponType = texts[0].strip()
@@ -228,7 +230,7 @@ def skin(skinName):
     getchart = get_data(weaponType, skinName)
     getdatafrompostgres = skin_data_from_postgres(weaponType,skinName)
 
-    context = {'getchart': getchart, 'getskindata': getdatafrompostgres}
+    context = {'getchart': getchart, 'getskindata': getdatafrompostgres,'image_url2':image_url2}
     return render_template('skin.html', **context)
 
 

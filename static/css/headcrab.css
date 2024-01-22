@@ -115,7 +115,6 @@ img {
     width: 1500px;
     padding-left: 10px;
     padding-right: 10px;
-    margin-right: auto;
     margin-left: auto
 }
 
@@ -497,9 +496,7 @@ a.header-login:hover {
 .header-user {
     display: flex;
     align-items: center;
-    justify-content: flex-end;
     flex: 1;
-    margin-left: 100%;
 }
 
 .header-user-avatar {
