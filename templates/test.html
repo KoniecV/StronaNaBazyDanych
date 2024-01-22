@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Szczegóły Skina CS</title>
+
+    <link rel="stylesheet" href="css/headcrab.css">
+    <link rel="stylesheet" href="css/skin.css">
+
+</head>
+
+<body>
+
+    <div id="root"></div>
+
+    <script src="https://unpkg.com/react@17/umd/react.development.js"></script>
+    <script src="https://unpkg.com/react-dom@17/umd/react-dom.development.js"></script>
+    <script src="https://unpkg.com/babel-standalone@6/babel.js"></script>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+
+    <script type="text/babel">
+        const { useState, useEffect } = React;
+
+        const SkinDetails = () => {
+            const [skinDetails, setSkinDetails] = useState({});
+            const urlParams = new URLSearchParams(window.location.search);
+            const skinId = urlParams.get('skinId');
+
+            useEffect(() => {
+                // Zapytanie do API obsługującego bazę danych
+                axios.get(`/api/skins/${skinId}`)
+                    .then(response => {
+                        setSkinDetails(response.data);
+                    })
+                    .catch(error => {
+                        console.error('Błąd podczas pobierania danych z API:', error);
+                    });
+            }, [skinId]);
+
+            return (
+                <table className="table table-bordered table-hover table-responsive-flex">
+                    <tbody>
+                        <tr>
+                            <td className="span3">Item Type</td>
+                            <td>{skinDetails.itemType}</td>
+                        </tr>
+                        <tr>
+                            <td>Skin Name</td>
+                            <td itemprop="applicationCategory">{skinDetails.skinName}</td>
+                        </tr>
+                        <tr>
+                            <td>Collection</td>
+                            <td><a href={skinDetails.collectionLink} itemprop="author">{skinDetails.collection}</a></td>
+                        </tr>
+                        <tr>
+                            <td>Rarity</td>
+                            <td><a href={skinDetails.rarityLink} itemprop="publisher">{skinDetails.rarity}</a></td>
+                        </tr>
+                        <tr>
+                            <td>Wear and Tear</td>
+                            <td><a href={skinDetails.wearAndTearLink}>{skinDetails.wearAndTear}</a></td>
+                        </tr>
+                        <tr>
+                            <td>Stat Track</td>
+                            <td><a href={skinDetails.statTrackLink} rel="nofollow">{skinDetails.statTrack}</a></td>
+                        </tr>
+                        <tr>
+                            <td>Souvenir</td>
+                            <td>
+                                {skinDetails.souvenirDate} UTC
+                                <i className="muted">
+                                    (<time className="timeago" datetime={skinDetails.souvenirDateISO} itemprop="dateModified" content={skinDetails.souvenirDateISO} title={skinDetails.souvenirDateFormatted}>{skinDetails.souvenirDateFormatted}</time>)
+                                </i>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            );
+        };
+        ReactDOM.render(
+            React.createElement(SkinDetails, null),
+            document.getElementById('root')
+        );
+    </script>
+
+</body>
+
+</html>
+
+YY7AtGmBB5uAAcgdEP5G0u34dqbbmEYmr7-ZgOEG4spK_6l9XMThk7HQckSQVWwD7mGxKSLzcTqHXU8bGU5pow==
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+$token = "YY7AtGmBB5uAAcgdEP5G0u34dqbbmEYmr7-ZgOEG4spK_6l9XMThk7HQckSQVWwD7mGxKSLzcTqHXU8bGU5pow=="
+$headers = @{
+    Authorization = "Token $token"
+}
+
+Invoke-RestMethod -Uri $url -Method GET -Headers $headers
+
+$response = Invoke-RestMethod -Uri 'http://localhost:8086/query?db=admin&q=SHOW MEASUREMENTS' -Method GET -Headers $headers
+
+# Extract and display measurements
+$measurements = $response.results[0].series[0].values
+$measurements
+
+
+
+
+
+
+
+
+$token = "YY7AtGmBB5uAAcgdEP5G0u34dqbbmEYmr7-ZgOEG4spK_6l9XMThk7HQckSQVWwD7mGxKSLzcTqHXU8bGU5pow=="
+$headers = @{
+    Authorization = "Token $token"
+}
+
+$response = Invoke-RestMethod -Uri 'http://localhost:8086/query?db=admin&q=SELECT "value" FROM "AWP" WHERE "Normal" = "Acheron (Battle-Scarred)" AND time >= now() - 30d AND time <= now() 
+' -Method GET -Headers $headers
+
+# Extract and display measurements
+$measurements = $response.results[0].series[0].values
+$measurements
+
+
+
+
+
+
+
+$token = "YY7AtGmBB5uAAcgdEP5G0u34dqbbmEYmr7-ZgOEG4spK_6l9XMThk7HQckSQVWwD7mGxKSLzcTqHXU8bGU5pow=="
+$headers = @{
+    Authorization = "Token $token"
+}
+
+$response = Invoke-RestMethod -Uri 'http://localhost:8086/query?db=admin&q=SELECT "value" FROM "AWP" WHERE "Normal" = "Acheron (Battle-Scarred)" AND time >= now() - 30d AND time <= now() 
+' -Method GET -Headers $headers
+
+# Extract and display measurements
+$measurements = $response.results[0].series[0].values
+$measurements
+
+
+
+$token = "YY7AtGmBB5uAAcgdEP5G0u34dqbbmEYmr7-ZgOEG4spK_6l9XMThk7HQckSQVWwD7mGxKSLzcTqHXU8bGU5pow=="
+$headers = @{
+    Authorization = "Token $token"
+}
+
+# Specify the new Flux query
+$newQuery = 'from(bucket: "admin") |> range(start: v.timeRangeStart, stop: v.timeRangeStop) |> filter(fn: (r) => r["_measurement"] == "AK-47") |> filter(fn: (r) => r["Normal"] == "Aquamarine Revenge (Field-Tested)") |> aggregateWindow(every: v.windowPeriod, fn: mean, createEmpty: false) |> yield(name: "mean")'
+
+# URL-encode the Flux query
+$encodedQuery = [System.Web.HttpUtility]::UrlEncode($newQuery)
+
+# Update the URI
+$url = 'http://localhost:8086/api/v2/query?org=c9d2f82bec384031&bucket=admin&precision=ns'
+
+# Make the request with the POST method
+$response = Invoke-RestMethod -Uri $url -Method POST -Headers $headers -Body @{
+    query = $encodedQuery
+}
+
+# Extract and display the result
+$measurementValues = $response.results[0].series[0].values
+$measurementValues

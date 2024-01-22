@@ -1,0 +1,3 @@
+# StronaNaBazyDanych
+StronaNaBazyDanych
+zmiania
