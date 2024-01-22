@@ -1259,7 +1259,7 @@ a.header-login:hover {
 
 .table-products .applogo img {
     width: 107px;
-    height: 40px;
+    height: 90px;
     display: inline-block;
     background: url(/static/img/applogo.svg);
     background-size: contain

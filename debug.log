@@ -1,0 +1,41 @@
+DEBUG:root:Error path to img M4A4 | Poseidon (Factory New)
+DEBUG:root:None
+INFO:werkzeug:127.0.0.1 - - [22/Jan/2024 02:57:00] "GET /get_image_url/M4A4%20|%20Poseidon%20(Factory%20New) HTTP/1.1" 200 -
+DEBUG:root:https://community.akamai.steamstatic.com/economy/image/-9a81dlWLwJ2UUGcVs_nsVtzdOEdtWwKGZZLQHTxDZ7I56KU0Zwwo4NUX4oFJZEHLbXH5ApeO4YmlhxYQknCRvCo04DEVlxkKgpot7HxfDhjxszOeC9H_9mkhIWFg8j1OO-GqWlD6dN-teTE8YXghWu4qgE7NnfzdtCTIQM-ZFnWqFLqyb270ZHt6MyanHMxvHYitHzVzBHk1RtOarc8m7XAHlYw1xU4/360fx360f
+INFO:werkzeug:127.0.0.1 - - [22/Jan/2024 02:57:00] "GET /get_image_url/AK-47%20|%20Fire%20Serpent%20(Field-Tested) HTTP/1.1" 200 -
+DEBUG:root:Error path to img AK-47 | Hydroponic (Field-Tested)
+DEBUG:root:None
+INFO:werkzeug:127.0.0.1 - - [22/Jan/2024 02:57:00] "GET /get_image_url/AK-47%20|%20Hydroponic%20(Field-Tested) HTTP/1.1" 200 -
+DEBUG:root:Error path to img M4A1-S | Hot Rod (Factory New)
+DEBUG:root:None
+INFO:werkzeug:127.0.0.1 - - [22/Jan/2024 02:57:00] "GET /get_image_url/M4A1-S%20|%20Hot%20Rod%20(Factory%20New) HTTP/1.1" 200 -
+DEBUG:root:https://community.akamai.steamstatic.com/economy/image/-9a81dlWLwJ2UUGcVs_nsVtzdOEdtWwKGZZLQHTxDZ7I56KU0Zwwo4NUX4oFJZEHLbXH5ApeO4YmlhxYQknCRvCo04DEVlxkKgpot7HxfDhjxszJegJa_t2vq4yCkP_gDLfQhGxUpsQg3LuQoI733APlrxI_azqgJoOSIQc9NQqD-lLrw-rqhJLtu8vJyHp9-n51JfbHn_c/360fx360f
+INFO:werkzeug:127.0.0.1 - - [22/Jan/2024 02:57:00] "GET /get_image_url/AK-47%20|%20X-Ray%20(Minimal%20Wear) HTTP/1.1" 200 -
+DEBUG:root:Error path to img AK-47 | Vulcan (Factory New)
+DEBUG:root:None
+INFO:werkzeug:127.0.0.1 - - [22/Jan/2024 02:57:00] "GET /get_image_url/AK-47%20|%20Vulcan%20(Factory%20New) HTTP/1.1" 200 -
+DEBUG:root:Error path to img AK-47 | X-Ray (Field-Tested)
+DEBUG:root:None
+INFO:werkzeug:127.0.0.1 - - [22/Jan/2024 02:57:00] "GET /get_image_url/AK-47%20|%20X-Ray%20(Field-Tested) HTTP/1.1" 200 -
+ERROR:notflask:Exception on /[object Promise] [GET]
+Traceback (most recent call last):
+  File "C:\Users\sidor\AppData\Local\Programs\Python\Python38\lib\site-packages\flask\app.py", line 1463, in wsgi_app
+    response = self.full_dispatch_request()
+  File "C:\Users\sidor\AppData\Local\Programs\Python\Python38\lib\site-packages\flask\app.py", line 872, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "C:\Users\sidor\AppData\Local\Programs\Python\Python38\lib\site-packages\flask\app.py", line 870, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "C:\Users\sidor\AppData\Local\Programs\Python\Python38\lib\site-packages\flask\app.py", line 855, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**view_args)  # type: ignore[no-any-return]
+  File "d:/Bazy Danych/StronaNaBazyDanych/notflask.py", line 107, in skin
+    getdatafrompostgres = skin_data_from_postgres(weaponType,skinName)
+  File "d:/Bazy Danych/StronaNaBazyDanych/notflask.py", line 230, in skin_data_from_postgres
+    czesci_stanu[1] = czesci_stanu[1].replace(")", "")
+IndexError: list index out of range
+INFO:werkzeug:127.0.0.1 - - [22/Jan/2024 02:57:02] "GET /[object%20Promise] HTTP/1.1" 500 -
+DEBUG:root:https://community.akamai.steamstatic.com/economy/image/-9a81dlWLwJ2UUGcVs_nsVtzdOEdtWwKGZZLQHTxDZ7I56KU0Zwwo4NUX4oFJZEHLbXH5ApeO4YmlhxYQknCRvCo04DEVlxkKgpou-6kejhjxszYfi5H5di5mr-HnvD8J4Tdl3lW7YsijuuUo9StiQG2_0Q-N2z0JobAdQU2ZQmCrFC9kurqh5W97Z6amnJgpGB8sqTzmbCH/360fx360f
+INFO:werkzeug:127.0.0.1 - - [22/Jan/2024 02:57:02] "GET /get_image_url/M4A4%20|%20Poseidon%20(Minimal%20Wear) HTTP/1.1" 200 -
+DEBUG:root:https://community.akamai.steamstatic.com/economy/image/-9a81dlWLwJ2UUGcVs_nsVtzdOEdtWwKGZZLQHTxDZ7I56KU0Zwwo4NUX4oFJZEHLbXH5ApeO4YmlhxYQknCRvCo04DEVlxkKgpou-6kejhz2v_Nfz5H_uO1gb-Gw_alDKjfl2BU18h0juDU-LP5iUazrl1vajqncdeRclA3N1DY81K4ku7sgpO7v86dwHpk7yZ3tnmLzRG1ghAYcKUx0svhgNwv/360fx360f
+INFO:werkzeug:127.0.0.1 - - [22/Jan/2024 02:57:03] "GET /get_image_url/M4A1-S%20|%20Welcome%20to%20the%20Jungle%20(Field-Tested) HTTP/1.1" 200 -
+DEBUG:root:https://community.akamai.steamstatic.com/economy/image/-9a81dlWLwJ2UUGcVs_nsVtzdOEdtWwKGZZLQHTxDZ7I56KU0Zwwo4NUX4oFJZEHLbXH5ApeO4YmlhxYQknCRvCo04DEVlxkKgpot621FAZh7PLfYQJE7dizq4yCkP_gDLfQhGxUppF0076Z8N2miwfn8kU_YjvycYWXJw83YgmGqFW4w7281MW5ucnOwXF9-n51Xlh34oU/360fx360f
+INFO:werkzeug:127.0.0.1 - - [22/Jan/2024 02:57:04] "GET /get_image_url/AWP%20|%20Fade%20(Factory%20New) HTTP/1.1" 200 -

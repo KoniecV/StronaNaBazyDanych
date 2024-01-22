@@ -2,7 +2,7 @@ function getImageUrl(skinName) {
     return fetch(`/get_image_url/${encodeURIComponent(skinName)}`)
         .then(response => response.text())
         .then(imageUrl => {
-            if (imageUrl === 'png/error.png') {
+            if (imageUrl === '/png/error.png') {
                 // Możesz obsłużyć tutaj przypadki, gdy nie uda się pobrać adresu URL obrazka
                 console.error('Error fetching image URL');
             }
@@ -17,7 +17,7 @@ function getImageUrl(skinName) {
 function fetchDataAndDisplayTable() {
     fetch('/query_influxdb') // Endpoint na serwerze Flask
         .then(response => response.json())
-        .then(data => {
+        .then(async data => {
             // Tworzenie HTML dla tabeli
             let tableHTML = '<table class="table-products table-hover">';
             tableHTML += '<colgroup>';
@@ -34,20 +34,24 @@ function fetchDataAndDisplayTable() {
             tableHTML += '<tbody>';
 
             // Dodanie danych do tabeli
-            data.forEach( record => {
-                imageUrl = getImageUrl(record._measurement + " | " + record.Normal);
-                tableHTML += '<tr class="app">';
-                tableHTML += '<td class="applogo">';
-                tableHTML += '<a href="/" tabindex="-1" aria-hidden="true">';
-                tableHTML += `<img src="${imageUrl}" alt="png/error.png">`;
-                tableHTML += '</a>';
-                tableHTML += '</td>';
-                tableHTML += '<td>';
-                tableHTML += '<a href="/" class="css-truncate">' + record._measurement + " " + record.Normal;
-                tableHTML += '</td>';
-                tableHTML += '<td class="text-center tabular-nums green">' + record._value + '</td>';
-                tableHTML += '</tr>';
-            });
+            for (const record of data) {
+                try {
+                    const imageUrl = await getImageUrl(record._measurement + " | " + record.Normal);
+                    tableHTML += '<tr class="app">';
+                    tableHTML += '<td class="applogo">';
+                    tableHTML += '<a href="/" tabindex="-1" aria-hidden="true">';
+                    tableHTML += `<img src="${imageUrl}">`;
+                    tableHTML += '</a>';
+                    tableHTML += '</td>';
+                    tableHTML += '<td>';
+                    tableHTML += '<a href="/" class="css-truncate">' + record._measurement + " " + record.Normal;
+                    tableHTML += '</td>';
+                    tableHTML += '<td class="text-center tabular-nums green">' + record._value + '</td>';
+                    tableHTML += '</tr>';
+                } catch (error) {
+                    console.error('Error fetching image URL:', error);
+                }
+            }
 
             tableHTML += '</tbody>';
             tableHTML += '</table>';
