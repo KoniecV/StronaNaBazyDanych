@@ -19,7 +19,7 @@ logging.basicConfig(level=logging.DEBUG)
 def get_steam_market_image(skin_name):
     # Zamień spację w nazwie skórki na '%20' i przygotuj URL
     encoded_skin_name = skin_name.replace(' ', '%20')
-    encoded_skin_name = skin_name.replace('|', '%7C')
+    encoded_skin_name = encoded_skin_name.replace('|', '%7C')
     market_url = f'https://steamcommunity.com/market/listings/730/{encoded_skin_name}'
 
     # Wyślij żądanie do strony Steam Market
@@ -133,7 +133,7 @@ def get_image_url(skin_name):
         logging.debug(image_url2)
         return image_url2
     else:
-        return 'png/error.png' # Zmień na ścieżkę do domyślnego zdjęcia
+        return 'png/error.png' # Zmień na ścieżkę do domyślnego zdjęcia    
 
 
 @app.route('/query_influxdb', methods=['GET'])
