@@ -7,7 +7,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>SteamDB</title>
-    <link rel="shortcut icon" type="image/jpg" href="{{ url_for('static', filename='png/SteamDBlogo.ico') }}"/>
+    <link rel="shortcut icon" type="image/jpg" href="{{ url_for('static', filename='png/SteamDBlogo.ico') }}" />
     <link rel="preload" href="{{ url_for('static', filename='fonts/Inter-Italic.woff2') }}" as="font" type="font/woff2"
         crossorigin="">
     <link rel="preload" href="{{ url_for('static', filename='fonts/Inter-Bold.woff2') }}" as="font" type="font/woff2"
@@ -67,160 +67,7 @@
             <div class="container container-products">
                 <div class="row">
                     <div class="span6">
-                        <table class="table-products table-hover">
-                            <colgroup>
-                                <col style="width:119px">
-                                <col>
-                                <col style="width:120px">
-                                <col style="width:100px">
-                            </colgroup>
-                            <thead>
-                                <tr>
-                                    <th class="table-title" colspan="2"><a>Most Popular<span class="hide-small">
-                                                Skins</span></a></th>
-                                    <th>Players<span class="hide-small"> Now</span></th>
-                                    <th>24h Peak</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr class="app" data-appid="730" data-cache="1704407442">
-                                    <td class="applogo">
-                                        <a href="{{ skin_name }}" tabindex="-1" aria-hidden="true">
-                                            <!-- Zdjęcie skórki pobrane ze Steam Market (za pomocą odpowiednich funkcji) -->
-                                            <img src="{{ image_url }}" alt="{{ skin_name }} Image">
-                                        </a>
-                                    </td>
-                                    <td>
-                                        <a>{{ skin_name }}</a>
-                                    </td>
-                                    <td class="text-center tabular-nums green">
-                                        <!-- Dodatkowe informacje, jeśli są potrzebne -->
-                                        1,078,328
-                                    </td>
-                                    <td class="text-center tabular-nums">
-                                        <!-- Dodatkowe informacje, jeśli są potrzebne -->
-                                        1,155,457
-                                    </td>
-                                </tr>
-                                <tr class="app" data-appid="570" data-cache="1705121801">
-                                    <td class="applogo">
-                                        <a href="/app/570/charts/" tabindex="-1" aria-hidden="true">
-                                            <img src="https://cdn.cloudflare.steamstatic.com/steam/apps/570/capsule_sm_120.jpg?t=1705121801"
-                                                alt="">
-                                        </a>
-                                    </td>
-                                    <td>
-                                        <a href="/app/570/charts/" class="css-truncate">Dota 2</a>
-                                    </td>
-                                    <td class="text-center tabular-nums green">616,155</td>
-                                    <td class="text-center tabular-nums">734,653</td>
-                                </tr>
-                                <tr class="app" data-appid="578080" data-cache="1704844994">
-                                    <td class="applogo">
-                                        <a href="/app/578080/charts/" tabindex="-1" aria-hidden="true">
-                                            <img src="https://cdn.cloudflare.steamstatic.com/steam/apps/578080/capsule_sm_120.jpg?t=1704844994"
-                                                alt="">
-                                        </a>
-                                    </td>
-                                    <td>
-                                        <a href="/app/578080/charts/" class="css-truncate">PUBG: BATTLEGROUNDS</a>
-                                    </td>
-                                    <td class="text-center tabular-nums green">249,761</td>
-                                    <td class="text-center tabular-nums">590,052</td>
-                                </tr>
-                                <tr class="app" data-appid="1086940" data-cache="1705086489">
-                                    <td class="applogo">
-                                        <a href="/app/1086940/charts/" tabindex="-1" aria-hidden="true">
-                                            <img src="https://cdn.cloudflare.steamstatic.com/steam/apps/1086940/capsule_sm_120.jpg?t=1705086489"
-                                                alt="">
-                                        </a>
-                                    </td>
-                                    <td>
-                                        <a href="/app/1086940/charts/" class="css-truncate">Baldur's Gate 3</a>
-                                    </td>
-                                    <td class="text-center tabular-nums green">242,759</td>
-                                    <td class="text-center tabular-nums">262,257</td>
-                                </tr>
-                                <tr class="app" data-appid="271590" data-cache="1705083283">
-                                    <td class="applogo">
-                                        <a href="/app/271590/charts/" tabindex="-1" aria-hidden="true">
-                                            <img src="https://cdn.cloudflare.steamstatic.com/steam/apps/271590/capsule_sm_120.jpg?t=1705083283"
-                                                alt="">
-                                        </a>
-                                    </td>
-                                    <td>
-                                        <a href="/app/271590/charts/" class="css-truncate">Grand Theft Auto V</a>
-                                    </td>
-                                    <td class="text-center tabular-nums green">162,419</td>
-                                    <td class="text-center tabular-nums">200,204</td>
-                                </tr>
-                                <tr class="app" data-appid="1172470" data-cache="1705245056">
-                                    <td class="applogo">
-                                        <a href="/app/1172470/charts/" tabindex="-1" aria-hidden="true">
-                                            <img src="https://cdn.cloudflare.steamstatic.com/steam/apps/1172470/capsule_sm_120.jpg?t=1705245056"
-                                                alt="">
-                                        </a>
-                                    </td>
-                                    <td>
-                                        <a href="/app/1172470/charts/" class="css-truncate">Apex Legends</a>
-                                    </td>
-                                    <td class="text-center tabular-nums green">135,251</td>
-                                    <td class="text-center tabular-nums">322,992</td>
-                                </tr>
-                                <tr class="app" data-appid="252490" data-cache="1705071075">
-                                    <td class="applogo">
-                                        <a href="/app/252490/charts/" tabindex="-1" aria-hidden="true">
-                                            <img src="https://cdn.cloudflare.steamstatic.com/steam/apps/252490/capsule_sm_120.jpg?t=1705071075"
-                                                alt="">
-                                        </a>
-                                    </td>
-                                    <td>
-                                        <a href="/app/252490/charts/" class="css-truncate">Rust</a>
-                                    </td>
-                                    <td class="text-center tabular-nums green">134,440</td>
-                                    <td class="text-center tabular-nums">149,919</td>
-                                </tr>
-                                <tr class="app" data-appid="1938090" data-cache="1705107117">
-                                    <td class="applogo">
-                                        <a href="/app/1938090/charts/" tabindex="-1" aria-hidden="true">
-                                            <img src="https://cdn.cloudflare.steamstatic.com/steam/apps/1938090/capsule_sm_120.jpg?t=1705107117"
-                                                alt="">
-                                        </a>
-                                    </td>
-                                    <td>
-                                        <a href="/app/1938090/charts/" class="css-truncate">Call of Duty®</a>
-                                    </td>
-                                    <td class="text-center tabular-nums green">124,443</td>
-                                    <td class="text-center tabular-nums">131,744</td>
-                                </tr>
-                                <tr class="app" data-appid="1966720" data-cache="1705187446">
-                                    <td class="applogo">
-                                        <a href="/app/1966720/charts/" tabindex="-1" aria-hidden="true">
-                                            <img src="https://cdn.cloudflare.steamstatic.com/steam/apps/1966720/capsule_sm_120.jpg?t=1705187446"
-                                                alt="">
-                                        </a>
-                                    </td>
-                                    <td>
-                                        <a href="/app/1966720/charts/" class="css-truncate">Lethal Company</a>
-                                    </td>
-                                    <td class="text-center tabular-nums green">121,076</td>
-                                    <td class="text-center tabular-nums">182,367</td>
-                                </tr>
-                                <tr class="app" data-appid="236390" data-cache="1705245044">
-                                    <td class="applogo">
-                                        <a href="/app/236390/charts/" tabindex="-1" aria-hidden="true">
-                                            <img src="https://cdn.cloudflare.steamstatic.com/steam/apps/236390/capsule_sm_120.jpg?t=1705245044"
-                                                alt="">
-                                        </a>
-                                    </td>
-                                    <td>
-                                        <a href="/app/236390/charts/" class="css-truncate">War Thunder</a>
-                                    </td>
-                                    <td class="text-center tabular-nums green">93,914</td>
-                                    <td class="text-center tabular-nums">98,111</td>
-                                </tr>
-                            </tbody>
-                        </table>
+                        <div id="table-container"></div>
                     </div>
                     <div class="span6">
                         <table class="table-products table-hover">
@@ -242,7 +89,7 @@
                                 <tr class="app" data-appid="2426960" data-cache="1705200302">
                                     <td class="applogo">
                                         <a href="/app/2426960/charts/" tabindex="-1" aria-hidden="true">
-                                            <img src="https://cdn.cloudflare.steamstatic.com/steam/apps/2426960/capsule_sm_120.jpg?t=1705200302"
+                                            <img src="https://community.akamai.steamstatic.com/economy/image/-9a81dlWLwJ2UUGcVs_nsVtzdOEdtWwKGZZLQHTxDZ7I56KU0Zwwo4NUX4oFJZEHLbXH5ApeO4YmlhxYQknCRvCo04DEVlxkKgpou-6kejhz2v_Nfz5H_uO1gb-Gw_alDKjfl2BU18h0juDU-LP5iUazrl1vajqncdeRclA3N1DY81K4ku7sgpO7v86dwHpk7yZ3tnmLzRG1ghAYcKUx0svhgNwv/360fx360f'"
                                                 alt="">
                                         </a>
                                     </td>
