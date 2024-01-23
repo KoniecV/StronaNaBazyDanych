@@ -38,10 +38,7 @@
             <br>
             <button type="submit" class="login-button">Login</button>
             <p>Don't have an account? <a href="/register">Register here</a>.</p>
-        </form>
-        </div>
-
-        <div class="error-messages">
+             <div class="error-messages">
             {% with messages = get_flashed_messages() %}
             {% if messages %}
             <ul class="flashes">
@@ -51,7 +48,12 @@
             </ul>
             {% endif %}
             {% endwith %}
-            </div>
+        </div>
+        </form>
+
+        </div>
+
+
 </body>
 
 </html>

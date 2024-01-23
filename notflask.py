@@ -46,7 +46,7 @@ def get_steam_market_image(skin_name):
 influxdb_host = "127.0.0.1:8086"
 bucket = "admin"
 org = "086f756ff907fbd5"
-token = "4khVY-qf0z-Bt3iGxam3IvXvExtahAwFRaflw_3hP1QNU38lFjpg-0ZQHlmb3FEU57wGQrZEu4Mvea-UFuXS8Q=="
+token = "lDgdCQfE9g5KfA6WUqDgOXqm-X1Ge5AAOGoduNFyou8xPrw86Lpqg_0GwhJKjHgkfSRVLCYtXOLEMqOObL0tYQ=="
 #org = "c9d2f82bec384031"
 #token = "YY7AtGmBB5uAAcgdEP5G0u34dqbbmEYmr7-ZgOEG4spK_6l9XMThk7HQckSQVWwD7mGxKSLzcTqHXU8bGU5pow=="
 
@@ -341,10 +341,20 @@ def profile():
         cursor = conn.cursor()
         cursor.execute("SELECT iduzytkownika, nazwa, email, zweryfikowany FROM uzytkownik WHERE iduzytkownika = %s;", (user_id,))
         user_info = cursor.fetchone()
+        # Pobierz przedmioty użytkownika z tabeli ekwipunek_uzytkownika
+        cursor.execute("SELECT id_przedmiotu, cena_zakupu FROM ekwipunek_uzytkownika WHERE id_uzytkownika = %s;",
+                       (user_id,))
+        user_items = cursor.fetchall()
+
+        # Dla każdego przedmiotu pobierz szczegółowe informacje z tabeli typ_przedmiotu
+        items_details = []
+        for item_id, purchase_price in user_items:
+            item_details = get_item_details(item_id)
+            items_details.append({'id_przedmiotu': item_id, 'cena_zakupu': purchase_price, 'details': item_details})
         conn.close()
 
         if user_info:
-            return render_template('profile.html', user_info=user_info)
+            return render_template('profile.html', user_info=user_info, items_details=items_details)
         else:
             flash("Błąd pobierania informacji o użytkowniku", 'error')
             return redirect(url_for('index'))
@@ -389,6 +399,99 @@ def query_influxdb():
 
     return jsonify(sorted_data)
 
+
+def get_item_details(item_id):
+    # Pobierz szczegółowe informacje o przedmiocie z tabeli typ_przedmiotu
+    conn = connect_db()
+    cursor = conn.cursor()
+    cursor.execute("SELECT * FROM typ_przedmiotu WHERE id_przedmiotu = %s;", (item_id,))
+    item_details = cursor.fetchone()
+    conn.close()
+
+    return item_details
+
+@app.route('/fetch_inventory_data', methods=['GET'])
+def fetch_inventory_data():
+    if 'user' in session:
+        user_id = session['user']['id']
+        get_inventory_data(user_id)
+        return redirect(url_for('profile'))
+    else:
+        return jsonify({'status': 'error', 'message': 'User not logged in.'})
+
+
+def get_inventory_data(user_id):
+    conn = connect_db()
+    cursor = conn.cursor()
+    cursor.execute("SELECT steamid FROM uzytkownik WHERE iduzytkownika = %s;", (user_id,))
+    steamid = cursor.fetchone()[0]
+    conn.close()
+
+    # Zbuduj URL do strony inventory
+    inventory_url = f'https://steamcommunity.com/inventory/{steamid}/730/2?l=english'
+    cookie = {
+        "steamLoginSecure": "76561198239988602%7C%7CeyAidHlwIjogIkpXVCIsICJhbGciOiAiRWREU0EiIH0.eyAiaXNzIjogInI6MTVFRl8yM0M4RTRDOV81MUMyQiIsICJzdWIiOiAiNzY1NjExOTgyMzk5ODg2MDIiLCAiYXVkIjogWyAid2ViOmNvbW11bml0eSIgXSwgImV4cCI6IDE3MDYwMTUzNzksICJuYmYiOiAxNjk3Mjg3MjM2LCAiaWF0IjogMTcwNTkyNzIzNiwgImp0aSI6ICIwRTNCXzIzRDBCNjQ5X0E0QjNCIiwgIm9hdCI6IDE3MDU0MjgyNDAsICJydF9leHAiOiAxNzIzMjI2OTU2LCAicGVyIjogMCwgImlwX3N1YmplY3QiOiAiNzcuMjIyLjI1NS4yMzQiLCAiaXBfY29uZmlybWVyIjogIjc3LjIyMi4yNTUuMjM0IiB9.gtz8ZgQQM6GkbEdpLoAHSFbZMoYJr0e_NdN548CrarEOSMAkLHsNLCgJGpYFssFd5Vkp3BfXdbeVELYPahc8Ag"}
+
+    # Wyślij żądanie GET do strony inventory
+    response = requests.get(inventory_url, cookies=cookie)
+    if response.status_code == 200:
+        # Pobierz dane w formie JSON
+        inventory_data = response.json()
+
+        # Sprawdź, czy istnieje klucz "market_hash_name" w danych
+        if "descriptions" in inventory_data:
+            descriptions = inventory_data["descriptions"]
+            for description in descriptions:
+                if "market_hash_name" in description:
+                    market_hash_name = description["market_hash_name"]
+                    if "(" in market_hash_name and ")" in market_hash_name:
+                        if "Graffiti" not in market_hash_name and "Sticker" not in market_hash_name:
+                            is_stattrak = "StatTrak" in market_hash_name
+                            is_souvenir = "Souvenir" in market_hash_name
+                            if is_stattrak or is_souvenir:
+                                x = market_hash_name.split()
+                                market_hash_name = ' '.join(x[1:])
+                            item_type, rest_of_skin = market_hash_name.split(" | ")
+                            skin_name, condition = rest_of_skin.split("(")
+                            condition = condition.rstrip(")").strip()
+
+                            skin_name = skin_name.strip()
+                            conn = connect_db()
+                            cursor = conn.cursor()
+                            query = """
+                                    SELECT "id_przedmiotu"
+                                    FROM "typ_przedmiotu"
+                                    WHERE "typ_skina" = %s
+                                    AND "nazwa_skorki" = %s
+                                    AND "stan_zuzycia" = %s
+                                    AND "stattrak" = %s
+                                    AND "pamiatka" = %s
+                                          """
+                            cursor.execute(query, (item_type, skin_name, condition, is_stattrak, is_souvenir))
+                            result = cursor.fetchone()
+
+                            if result:
+                                item_id = result[0]
+
+                                # Dodaj dopasowanie do tabeli "Ekwipunek użytkownika"
+                                insert_query = """
+                                        INSERT INTO "ekwipunek_uzytkownika" ("id_uzytkownika", "id_przedmiotu", "cena_zakupu")
+                                        VALUES (%s, %s, %s)
+                                    """
+                                cursor.execute(insert_query, (
+                                user_id, item_id, None))  # Cena zakupu ustawiłem na None, dostosuj to do swoich potrzeb
+                                conn.commit()
+                                print(
+                                    f"Dodano dopasowanie do ekwipunku dla {market_hash_name}: ID przedmiotu = {item_id}")
+            # Tutaj możesz dodać kod do zapisania wartości w bazie danych lub zwrócenia ich
+            # w zależności od potrzeb
+
+        else:
+            print("Klucz 'market_hash_name' nie istnieje w danych JSON.")
+            return None
+    else:
+        print(f"Błąd podczas pobierania danych z inventory. Kod odpowiedzi: {response.status_code}")
+        return None
 
 @app.route('/get_data', methods=['GET'])
 def get_data(weaponType,skinName):

@@ -52,7 +52,7 @@
         <!-- Display user's name and a logout link if user is logged in -->
         <div>
             Welcome, {{ session['user']['username'] }}!
-            <a href="{{ url_for('profile') }}" rel="nofollow">Profil</a>
+            <a href="{{ url_for('profile') }}" rel="nofollow">Profile</a>
             <a href="{{ url_for('logout') }}" rel="nofollow">Logout</a>
             <a href="{{ url_for('inventory') }}">Inventory</a>
         </div>
