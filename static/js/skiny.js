@@ -36,15 +36,16 @@ function fetchDataAndDisplayTable() {
             // Dodanie danych do tabeli
             for (const record of data) {
                 try {
+                    const href_to_skin = record._measurement + " | " + record.Normal
                     const imageUrl = await getImageUrl(record._measurement + " | " + record.Normal);
                     tableHTML += '<tr class="app">';
                     tableHTML += '<td class="applogo">';
-                    tableHTML += '<a href="/" tabindex="-1" aria-hidden="true">';
+                    tableHTML += `<a href="${imageUrl}" tabindex="-1" aria-hidden="true">`;
                     tableHTML += `<img src="${imageUrl}">`;
                     tableHTML += '</a>';
                     tableHTML += '</td>';
                     tableHTML += '<td>';
-                    tableHTML += '<a href="/" class="css-truncate">' + record._measurement + " " + record.Normal;
+                    tableHTML += `<a href="/${href_to_skin}" class="css-truncate">` + record._measurement + " " + record.Normal;
                     tableHTML += '</td>';
                     tableHTML += '<td class="text-center tabular-nums green">' + record._value + '</td>';
                     tableHTML += '</tr>';
